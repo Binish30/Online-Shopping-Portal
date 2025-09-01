@@ -1,0 +1,84 @@
+/* src/components/CartItems/CartItems.css */
+
+/* This is our main grid layout for both the header and the item rows */
+.cartitems-format {
+    display: grid;
+    /* Defines our 6 columns and their relative sizes */
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    align-items: center; /* This vertically centers everything in a row */
+    gap: 75px;
+    padding: 15px 0px;
+    color: #454545;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+/* This class is for the header row to make the text bold */
+.cartitems-format-header {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.carticon-product-icon {
+    height: 62px;
+}
+
+.cartitems-quantity {
+    width: 64px;
+    height: 50px;
+    border: 2px solid #ebebeb;
+    background: #fff;
+    text-align: center; /* Center the quantity number */
+}
+
+.cartitems-remove-icon {
+    cursor: pointer;
+    margin: auto; /* This helps center the icon within its grid cell */
+}
+
+/* --- Styles for the Totals Section --- */
+.cartitems-down {
+    display: flex;
+    flex-direction: column; /* Stack on mobile */
+    margin: 100px 0px;
+    gap: 2rem;
+}
+
+/* Use a media query to make it side-by-side on larger screens */
+@media (min-width: 768px) {
+    .cartitems-down {
+        flex-direction: row;
+    }
+}
+
+.cartitems-total {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid #e2e2e2;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.cartitems-total-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+}
+
+.cartitems-promocode {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.cartitems-promocode p {
+    color: #555;
+}
+
+.cartitems-promobox {
+    width: 100%;
+    margin-top: 15px;
+    height: 50px;
+}

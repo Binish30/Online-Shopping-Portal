@@ -1,0 +1,38 @@
+.product-main-img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.product-display-right h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.product-prices {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.product-price-old {
+    color: #6c757d;
+    font-size: 1.25rem;
+    text-decoration: line-through;
+}
+
+.product-price-new {
+    color: #dc3545; /* Bootstrap's danger red color */
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.product-description {
+    color: #495057;
+    line-height: 1.6;
+}
+
+.product-category span {
+    font-weight: 600;
+}

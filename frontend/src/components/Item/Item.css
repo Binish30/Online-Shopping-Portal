@@ -1,0 +1,31 @@
+.item-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.item-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Add a subtle shadow */
+}
+
+.card-title {
+    /* We use !important here to make sure our custom font size overrides Bootstrap's default */
+    font-size: 1rem !important; 
+    font-weight: 500;
+}
+
+.item-prices {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.item-price-new {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #212529; /* A standard dark color */
+}
+
+.item-price-old {
+    text-decoration: line-through;
+    color: #6c757d; /* A muted gray color */
+}

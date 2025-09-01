@@ -1,0 +1,17 @@
+.breadcrumb-nav .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between items */
+    margin-bottom: 2rem; /* Space below the breadcrumb */
+    font-size: 0.9rem;
+}
+
+.breadcrumb-nav .breadcrumb-item a {
+    text-decoration: none;
+    color: #0d6efd; /* Bootstrap primary blue */
+}
+
+.breadcrumb-nav .breadcrumb-item.active {
+    color: #6c757d; /* Bootstrap secondary gray */
+    font-weight: 500;
+}
