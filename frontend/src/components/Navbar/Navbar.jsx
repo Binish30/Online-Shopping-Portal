@@ -3,8 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ShoppingCart, User, Search, LogOut } from "lucide-react";
 import { ShopContext } from "../../context/ShopContext";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import logo from "../../assets/logo.png"; // Assuming you have a logo.png in src/assets
-import "./Navbar.css";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const { getTotalCartItems, logout } = useContext(ShopContext);
@@ -20,8 +19,8 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    logout(); // This removes the token from localStorage
-    window.location.replace("/"); // Force a reload to update the navbar
+    logout();
+    window.location.replace("/");
   };
 
   return (
@@ -57,28 +56,20 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <NavDropdown title="Electronics" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/mobile">
-                Mobile Phones
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/laptops">
-                Laptops
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/washing_machine">
-                Washing Machines
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/refrigerator">
-                Refrigerator
-              </NavDropdown.Item>
-            </NavDropdown>
+                <NavDropdown.Item as={Link} to="/mobile">
+                  Mobile Phones
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/laptops">
+                  Laptops
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/washing_machine">
+                  Washing Machines
+                </NavDropdown.Item>
+              </NavDropdown>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/books">
                 Books
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/home">
-                Home & Kitchen
               </NavLink>
             </li>
             <NavDropdown title="Clothes" id="basic-nav-dropdown">
@@ -112,28 +103,26 @@ const Navbar = () => {
             </button>
           </form>
 
-                 <div className="d-flex align-items-center ms-lg-3">
-                {/* The theme toggle button has been removed from here */}
-                
-                {localStorage.getItem("auth-token") ? (
-                  <NavDropdown title={`Hello, ${localStorage.getItem("username")}`} id="user-nav-dropdown">
-                    <NavDropdown.Item as={Link} to="/my-orders">My Orders</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
-                  </NavDropdown>
-                ) : (
-                  <Link to="/login" className="btn btn-outline-primary me-2">
-                    <User size={20} className="me-1" /> Login
-                  </Link>
-                )}
+          <div className="d-flex align-items-center ms-lg-3">
+            {localStorage.getItem("auth-token") ? (
+              <NavDropdown title={`Hello, ${localStorage.getItem("username")}`} id="user-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/my-orders">My Orders</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Link to="/login" className="btn btn-outline-primary me-2">
+                <User size={20} className="me-1" /> Login
+              </Link>
+            )}
 
-                <Link to="/cart" className="btn btn-outline-dark position-relative ms-3">
-                  <ShoppingCart size={20} />
-                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {localStorage.getItem("auth-token") ? getTotalCartItems() : 0}
-                  </span>
-                </Link>
-            </div>
+            <Link to="/cart" className="btn btn-outline-dark position-relative ms-3">
+              <ShoppingCart size={20} />
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {localStorage.getItem("auth-token") ? getTotalCartItems() : 0}
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

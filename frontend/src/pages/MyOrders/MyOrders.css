@@ -6,15 +6,18 @@
 }
 
 .status {
-    padding: 0 25em 0.6em;
-    font-size: 0.85em;
-    font-weight: 700;
-    line-height: 1;
+    padding: 3px 8px;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    margin-left: 8px;
+
     color: #fff;
     text-align: center;
     white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 0.375rem;
+    vertical-align: middle;
+    border-radius: 0.25rem;
 }
 
 .order-header {
@@ -23,31 +26,47 @@
     width: 100%;
     padding: 0.75rem 1.25rem;
     font-weight: 700;
-    color: #6c757d; /* A muted gray color */
+    color: #6c757d;
     border-bottom: 2px solid #dee2e6;
     margin-bottom: 0.5rem;
 }
 
-/* We use a flexbox item to match the order-summary layout */
 .header-item {
     flex: 1;
     text-align: left;
 }
 
-/* Make sure the summary items also have the same flex properties */
 .order-summary span {
     flex: 1;
     text-align: left;
 }
 
-/* This class hides the header on small (mobile) screens */
-.d-none { display: none !important; }
-@media (min-width: 768px) {
-    .d-md-flex { display: flex !important; }
+.d-none {
+    display: none !important;
 }
 
-.status-pending { background-color: #6c757d; }
-.status-processing { background-color: #0d6efd; }
-.status-shipped { background-color: #198754; }
-.status-delivered { background-color: #20c997; }
-.status-cancelled { background-color: #dc3545; }
+@media (min-width: 768px) {
+    .d-md-flex {
+        display: flex !important;
+    }
+}
+
+.status-pending {
+    background-color: #6c757d;
+}
+
+.status-processing {
+    background-color: #0d6efd;
+}
+
+.status-shipped {
+    background-color: #198754;
+}
+
+.status-delivered {
+    background-color: #20c997;
+}
+
+.status-cancelled {
+    background-color: #dc3545;
+}

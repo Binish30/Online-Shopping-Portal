@@ -1,5 +1,3 @@
-// src/pages/LoginSignUp/LoginSignUp.jsx
-
 import React, { useState } from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -25,11 +23,11 @@ const LoginSignUp = () => {
     await fetch("http://localhost:8000/api/login/", {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: formData.email, password: formData.password }), // Only send email and password for login
+      body: JSON.stringify({ email: formData.email, password: formData.password }),
     })
-    .then(res => res.json())
-    .then(data => responseData = data);
-    
+      .then(res => res.json())
+      .then(data => responseData = data);
+
     if (responseData.success) {
       localStorage.setItem("auth-token", responseData.token);
       localStorage.setItem("username", responseData.username);
@@ -47,9 +45,9 @@ const LoginSignUp = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...formData, phone }),
     })
-    .then(res => res.json())
-    .then(data => responseData = data);
-    
+      .then(res => res.json())
+      .then(data => responseData = data);
+
     if (responseData.success) {
       alert(responseData.success);
       setState("Login");
@@ -67,7 +65,7 @@ const LoginSignUp = () => {
             <div className="row">
               <div className="col">
                 <input
-                  name="first_name" // <-- Crucial: Must match state key
+                  name="first_name"
                   value={formData.first_name}
                   onChange={changeHandler}
                   type="text"
@@ -77,7 +75,7 @@ const LoginSignUp = () => {
               </div>
               <div className="col">
                 <input
-                  name="last_name" // <-- Crucial: Must match state key
+                  name="last_name"
                   value={formData.last_name}
                   onChange={changeHandler}
                   type="text"
@@ -88,7 +86,7 @@ const LoginSignUp = () => {
             </div>
           )}
           <input
-            name="email" // <-- Crucial: Must match state key
+            name="email"
             value={formData.email}
             onChange={changeHandler}
             type="email"
@@ -105,7 +103,7 @@ const LoginSignUp = () => {
             />
           )}
           <input
-            name="password" // <-- Crucial: Must match state key
+            name="password"
             value={formData.password}
             onChange={changeHandler}
             type="password"

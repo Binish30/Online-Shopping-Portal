@@ -1,33 +1,39 @@
-// src/pages/ShopCategory/ShopCategory.jsx
-
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ShopContext } from "../../context/ShopContext";
 import Item from "../../components/Item/Item";
 import "./ShopCategory.css";
 
 const ShopCategory = (props) => {
   const { all_products } = useContext(ShopContext);
+  const [sortOrder, setSortOrder] = useState('latest');
 
-  // This logic creates a new array containing only the products that should be displayed.
-  const displayedProducts = all_products.filter((item) => {
-    if (props.subcategory) {
-      // Filter by subcategory if the subcategory prop is present
-      return item.subcategory === props.subcategory;
-    } else if (props.category) {
-      // Otherwise, filter by the main category
-      return item.category === props.category;
-    }
-    return false; // Don't show anything if neither prop is provided
-  });
+  const sortedAndFilteredProducts = all_products
+    .filter((item) => {
+      if (props.subcategory) {
+        return item.subcategory === props.subcategory;
+      } else if (props.category) {
+        return item.category === props.category;
+      }
+      return false;
+    })
+    .sort((a, b) => {
+      switch (sortOrder) {
+        case 'price_asc':
+          return parseFloat(a.new_price) - parseFloat(b.new_price);
+        case 'price_desc':
+          return parseFloat(b.new_price) - parseFloat(a.new_price);
+        case 'latest':
+        default:
+          return b.id - a.id;
+      }
+    });
 
   return (
-    <div className="shop-category">
-      {/* The Sorting Dropdown UI */}
+    <div className="shop-category container my-4">
       <div className="shopcategory-indexSort d-flex justify-content-between align-items-center mb-4">
         <p>
-          {/* Make the "Showing" count dynamic based on the filtered list */}
-          <span>Showing 1-{displayedProducts.length}</span> out of{" "}
-          {all_products.length} total products
+          <span>Showing 1-{sortedAndFilteredProducts.length}</span> out of{" "}
+          {sortedAndFilteredProducts.length} total products in this category
         </p>
         <div className="shopcategory-sort dropdown">
           <button
@@ -40,38 +46,35 @@ const ShopCategory = (props) => {
           </button>
           <ul className="dropdown-menu">
             <li>
-              <a className="dropdown-item" href="#">
+              <button className="dropdown-item" onClick={() => setSortOrder('latest')}>
                 Latest
-              </a>
+              </button>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
+              <button className="dropdown-item" onClick={() => setSortOrder('price_asc')}>
                 Price: Low to High
-              </a>
+              </button>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
+              <button className="dropdown-item" onClick={() => setSortOrder('price_desc')}>
                 Price: High to Low
-              </a>
+              </button>
             </li>
           </ul>
         </div>
       </div>
 
-      {/* The Grid of Products */}
       <div className="row">
-        {displayedProducts.map((item, i) => {
-          return (
-            <Item
-              key={i}
-              id={item.id}
-              name={item.name}
-              image={item.image}
-              new_price={item.new_price}
-              old_price={item.old_price}
-            />
-          );
-        })}
+        {sortedAndFilteredProducts.map((item, i) => (
+          <Item
+            key={i}
+            id={item.id}
+            name={item.name}
+            image={item.image}
+            new_price={item.new_price}
+            old_price={item.old_price}
+          />
+        ))}
       </div>
     </div>
   );

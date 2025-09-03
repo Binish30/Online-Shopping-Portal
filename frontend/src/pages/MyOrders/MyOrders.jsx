@@ -22,7 +22,7 @@ const MyOrders = () => {
         }
 
         const data = await response.json();
-         console.log("Data received from backend:", data); 
+        console.log("Data received from backend:", data);
         setOrders(data);
       } catch (err) {
         setError(err.message);
@@ -39,35 +39,35 @@ const MyOrders = () => {
     }
   }, []);
 
-  const handleCancelOrder = async(orderId) => {
-    if(!window.confirm("Are you sure you want to canmcel this order?" )) {
-        return;
+  const handleCancelOrder = async (orderId) => {
+    if (!window.confirm("Are you sure you want to canmcel this order?")) {
+      return;
     }
-    try{
-        const response = await fetch(`http://localhost:8000/api/orders/${orderId}/cancel/`,{
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('auth-token')}`,
-            },
-        });
+    try {
+      const response = await fetch(`http://localhost:8000/api/orders/${orderId}/cancel/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('auth-token')}`,
+        },
+      });
 
-        const responseData = await response.json();
+      const responseData = await response.json();
 
-        if(!response.ok) {
-            throw new Error(responseData.error || "Failed to cancel order.");
-        }
+      if (!response.ok) {
+        throw new Error(responseData.error || "Failed to cancel order.");
+      }
 
-        setOrders(currentOrders =>
-            currentOrders.map(order => order.id === orderId ? responseData : order)
-        );
+      setOrders(currentOrders =>
+        currentOrders.map(order => order.id === orderId ? responseData : order)
+      );
 
-        alert("Order successfully cancelled.");
+      alert("Order successfully cancelled.");
 
-        } catch (err) {
-            alert(`Error: ${err.message}`);
-        }
-    };
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    }
+  };
 
   if (loading) {
     return (
@@ -127,30 +127,28 @@ const MyOrders = () => {
                 <div className="accordion-body">
                   <ul className="list-group">
                     {order.items.map((item, index) => (
-  <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-    <div>
-      <strong>
-        {/* THIS IS THE FIX */}
-        {item.product ? item.product.name : "[Product no longer available]"}
-      </strong>
-      <br />
-      <small>Quantity: {item.quantity}</small>
-    </div>
-    {/* The price is stored on the OrderItem, so it will always be available */}
-    <span>₹{parseFloat(item.price).toFixed(2)}</span>
-  </li>
-))}
+                      <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                          <strong>
+                            {item.product ? item.product.name : "[Product no longer available]"}
+                          </strong>
+                          <br />
+                          <small>Quantity: {item.quantity}</small>
+                        </div>
+                        <span>₹{parseFloat(item.price).toFixed(2)}</span>
+                      </li>
+                    ))}
                   </ul>
-                   <div className="order-actions mt-3">
-                                            {order.status === 'Pending' && (
-                                                <button 
-                                                    className="btn btn-sm btn-outline-danger"
-                                                    onClick={() => handleCancelOrder(order.id)}
-                                                >
-                                                    Cancel Order
-                                                </button>
-                                            )}
-                                        </div>
+                  <div className="order-actions mt-3">
+                    {order.status === 'Pending' && (
+                      <button
+                        className="btn btn-sm btn-outline-danger"
+                        onClick={() => handleCancelOrder(order.id)}
+                      >
+                        Cancel Order
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

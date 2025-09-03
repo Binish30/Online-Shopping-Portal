@@ -1,5 +1,3 @@
-// src/components/CartItems/CartItems.jsx
-
 import React, { useContext } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../context/ShopContext';
@@ -7,12 +5,13 @@ import { XCircle, Plus, Minus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const CartItems = () => {
-    const { all_products, cartItems, removeFromCart, getTotalCartAmount, addToCart, deleteFromCart } = useContext(ShopContext);
+    const { all_products, cartItems, removeFromCart, getTotalCartAmount, addToCart, deleteFromCart, getTotalCartItems } = useContext(ShopContext);
     const navigate = useNavigate();
+
+    const totalItems = getTotalCartItems();
 
     return (
         <div className="cartitems container my-5">
-            {/* Header Row - This will now align perfectly with the item rows */}
             <div className="cartitems-format cartitems-format-header">
                 <p>Products</p>
                 <p>Title</p>
@@ -22,8 +21,6 @@ const CartItems = () => {
                 <p>Remove</p>
             </div>
             <hr />
-
-            {/* Item Rows - We loop and create a row for each item */}
             {all_products.map((e) => {
                 if (cartItems[e.id] > 0) {
                     return (
@@ -33,9 +30,9 @@ const CartItems = () => {
                                 <p>{e.name}</p>
                                 <p>₹{parseFloat(e.new_price).toFixed(2)}</p>
                                 <div className="cartitems-quantity-control">
-                                    <button onClick={() => {removeFromCart(e.id)}}><Minus size={16} /></button>
+                                    <button onClick={() => { removeFromCart(e.id) }}><Minus size={16} /></button>
                                     <div className='cartitems-quantity-display'>{cartItems[e.id]}</div>
-                                    <button onClick={() => {addToCart(e.id)}}><Plus size={16} /></button>
+                                    <button onClick={() => { addToCart(e.id) }}><Plus size={16} /></button>
                                 </div>
                                 <p>₹{(parseFloat(e.new_price) * cartItems[e.id]).toFixed(2)}</p>
                                 <XCircle className="cartitems-remove-icon" onClick={() => { deleteFromCart(e.id) }} />
@@ -46,8 +43,6 @@ const CartItems = () => {
                 }
                 return null;
             })}
-
-            {/* The rest of the component (Totals and Promo Code) remains the same */}
             <div className="cartitems-down">
                 <div className="cartitems-total">
                     <h1>Cart Totals</h1>
@@ -67,7 +62,21 @@ const CartItems = () => {
                             <h3>₹{getTotalCartAmount().toFixed(2)}</h3>
                         </div>
                     </div>
-                        
+                    <button
+                        className="btn btn-primary mt-4 w-100"
+                        onClick={() => {
+                            if (localStorage.getItem('auth-token')) {
+                                navigate('/checkout');
+                            } else {
+                                alert('You must be logged in to proceed to checkout.');
+                                navigate('/login');
+                            }
+                        }}
+                        disabled={totalItems === 0}
+                    >
+                        PROCEED TO CHECKOUT
+                    </button>
+
                 </div>
 
                 <div className="cartitems-promocode">

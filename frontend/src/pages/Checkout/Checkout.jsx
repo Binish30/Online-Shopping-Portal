@@ -11,10 +11,10 @@ const Checkout = () => {
     first_name: "",
     last_name: "",
     email: "",
-    phone:"",
-    address_flat: "", 
+    phone: "",
+    address_flat: "",
     address_area: "",
-        address_landmark: "",
+    address_landmark: "",
     city: "",
     zip_code: "",
   });
@@ -26,55 +26,54 @@ const Checkout = () => {
   };
 
   const placeOrder = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        const orderCartItems = all_products
-            .filter(product => cartItems[product.id] > 0)
-            .map(product => ({ id: product.id, quantity: cartItems[product.id] }));
+    const orderCartItems = all_products
+      .filter(product => cartItems[product.id] > 0)
+      .map(product => ({ id: product.id, quantity: cartItems[product.id] }));
 
-        // 2. COMBINED ADDRESS LOGIC IS CORRECT
-        const combinedAddress = `${shippingDetails.address_flat}, ${shippingDetails.address_area}, ${shippingDetails.address_landmark}`;
-        
-        // 3. THE DATA SENT TO BACKEND USES snake_case keys consistently
-        const finalShippingAddress = {
-            first_name: shippingDetails.first_name,
-            last_name: shippingDetails.last_name,
-            email: shippingDetails.email,
-            phone: shippingDetails.phone,
-            address: combinedAddress,
-            city: shippingDetails.city,
-            zip_code: shippingDetails.zip_code,
-        };
+    const combinedAddress = `${shippingDetails.address_flat}, ${shippingDetails.address_area}, ${shippingDetails.address_landmark}`;
 
-        const orderData = {
-            cart: orderCartItems,
-            shippingAddress: finalShippingAddress
-        };
 
-        try {
-            const response = await fetch('http://localhost:8000/api/create-order/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
-                },
-                body: JSON.stringify(orderData)
-            });
-
-            const responseData = await response.json();
-
-            if (response.ok) {
-               
-                clearCart();
-                navigate('/order-success',{state: {order: responseData}});
-            } else {
-                alert(`Failed to place the order: ${responseData.error || responseData.detail || 'Unknown error'}`);
-            }
-        } catch (error) {
-            alert(`An error occurred: ${error.message}`);
-        }
+    const finalShippingAddress = {
+      first_name: shippingDetails.first_name,
+      last_name: shippingDetails.last_name,
+      email: shippingDetails.email,
+      phone: shippingDetails.phone,
+      address: combinedAddress,
+      city: shippingDetails.city,
+      zip_code: shippingDetails.zip_code,
     };
+
+    const orderData = {
+      cart: orderCartItems,
+      shippingAddress: finalShippingAddress
+    };
+
+    try {
+      const response = await fetch('http://localhost:8000/api/create-order/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+
+        clearCart();
+        navigate('/order-success', { state: { order: responseData } });
+      } else {
+        alert(`Failed to place the order: ${responseData.error || responseData.detail || 'Unknown error'}`);
+      }
+    } catch (error) {
+      alert(`An error occurred: ${error.message}`);
+    }
+  };
 
   return (
     <div className="checkout-page container my-5">
@@ -87,7 +86,6 @@ const Checkout = () => {
       </div>
 
       <div className="row g-5">
-        {/* --- Left Column: Shipping Form --- */}
         <div className="col-md-7 col-lg-8">
           <h4 className="mb-3">Shipping address</h4>
           <form className="needs-validation" onSubmit={placeOrder}>
@@ -151,7 +149,7 @@ const Checkout = () => {
 
               <div className="col-12">
                 <label htmlFor="address_flat" className="form-label">
-                  Flat, House no., Building 
+                  Flat, House no., Building
                 </label>
                 <input
                   type="text"
@@ -237,12 +235,10 @@ const Checkout = () => {
           </form>
         </div>
 
-        {/* --- Right Column: Order Summary --- */}
         <div className="col-md-5 col-lg-4 order-md-last">
           <h4 className="d-flex justify-content-between align-items-center mb-3">
             <span className="text-primary">Your Cart</span>
             <span className="badge bg-primary rounded-pill">
-              {/* You can add total item count here */}
             </span>
           </h4>
           <ul className="list-group mb-3">

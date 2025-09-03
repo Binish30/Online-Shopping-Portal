@@ -46,7 +46,7 @@ const Product = () => {
                 addToCart(product.id);
               } else {
                 alert("Please log in to add items to your cart.");
-                navigate("/login"); // You would need to import and initialize useNavigate here
+                navigate("/login");
               }
             }}
           >
