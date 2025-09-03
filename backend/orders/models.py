@@ -35,7 +35,7 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.IntegerField(default=1)
 
-    def __str__(self):
+    def __str__(self):  
         product_name = self.product.name if self.product else "[Product Deleted]"
         return f"{self.quantity} x {product_name} in Order {self.order.id}"
 

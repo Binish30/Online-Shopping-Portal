@@ -1,5 +1,3 @@
-# users/views.py
-
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,14 +7,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 class SignUpView(APIView):
     
     def post(self, request):
-        # --- 1. Data Extraction ---
+
         first_name = request.data.get('first_name', '').strip()
         last_name = request.data.get('last_name', '').strip()
         email = request.data.get('email', '').strip()
         password = request.data.get('password')
-        phone = request.data.get('phone') # This is received but not used yet
+        phone = request.data.get('phone') 
 
-        # --- 2. Validation Checks ---
+
         if not first_name or not email or not password:
             return Response(
                 {'errors': 'First Name, Email, and Password are required fields.'},
@@ -29,7 +27,6 @@ class SignUpView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # --- 3. Username Generation (This is now in the correct place) ---
         base_username = f"{first_name.lower()}{last_name.lower() if last_name else ''}"
         
         if not base_username:
@@ -41,7 +38,6 @@ class SignUpView(APIView):
             username = f"{base_username}{counter}"
             counter += 1
 
-        # --- 4. User Creation ---
         try:
             user = User.objects.create_user(
                 username=username, 
