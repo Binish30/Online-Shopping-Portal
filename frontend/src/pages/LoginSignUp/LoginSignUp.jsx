@@ -8,8 +8,8 @@ import './LoginSignUp.css';
 const LoginSignUp = () => {
   const [state, setState] = useState("Login");
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     password: "",
     email: "",
   });
@@ -67,8 +67,8 @@ const LoginSignUp = () => {
             <div className="row">
               <div className="col">
                 <input
-                  name="firstName" // <-- Crucial: Must match state key
-                  value={formData.firstName}
+                  name="first_name" // <-- Crucial: Must match state key
+                  value={formData.first_name}
                   onChange={changeHandler}
                   type="text"
                   placeholder="First Name"
@@ -77,8 +77,8 @@ const LoginSignUp = () => {
               </div>
               <div className="col">
                 <input
-                  name="lastName" // <-- Crucial: Must match state key
-                  value={formData.lastName}
+                  name="last_name" // <-- Crucial: Must match state key
+                  value={formData.last_name}
                   onChange={changeHandler}
                   type="text"
                   placeholder="Last Name"

@@ -1,18 +1,26 @@
-# Frontend (Vite + React)
-/frontend/node_modules
-/frontend/dist
-/frontend/dist-ssr
+# --- General ---
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+
+# --- Backend (Django) ---
+# This is the most important line for the backend.
+# It ignores the entire virtual environment folder.
+/backend/venv/
+
+# Django specific files
+/backend/*.log
+/backend/db.sqlite3
+
+# --- Frontend (React + Vite) ---
+# This is the most important line for the frontend.
+# It ignores all installed npm packages.
+/frontend/node_modules/
+
+# Vite build output and environment files
+/frontend/dist/
+/frontend/dist-ssr/
 /frontend/*.local
 /frontend/.env.local
 /frontend/.env.*.local
-
-# Backend (Django)
-/backend/venv/
-/backend/*.log
-/backend/__pycache__/
-/backend/db.sqlite3
-
-# IDE / OS specific
-.vscode/
-.idea/
-.DS_Store

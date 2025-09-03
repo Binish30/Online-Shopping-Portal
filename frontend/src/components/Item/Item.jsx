@@ -12,9 +12,12 @@ const Item = (props) => {
             <div className="card-body d-flex flex-column">
                 <h5 className="card-title">{props.name}</h5>
                 <div className="item-prices mt-auto">
-                    <span className="item-price-new">${props.new_price.toFixed(2)}</span>
-                    <span className="item-price-old">${props.old_price.toFixed(2)}</span>
-                </div>
+    <span className="item-price-new">₹{parseFloat(props.new_price).toFixed(2)}</span>
+    
+    {props.old_price && (
+        <span className="item-price-old">₹{parseFloat(props.old_price).toFixed(2)}</span>
+    )}
+</div>
             </div>
         </div>
     </div>

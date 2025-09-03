@@ -10,8 +10,8 @@ class SignUpView(APIView):
     
     def post(self, request):
         # --- 1. Data Extraction ---
-        first_name = request.data.get('firstName', '').strip()
-        last_name = request.data.get('lastName', '').strip()
+        first_name = request.data.get('first_name', '').strip()
+        last_name = request.data.get('last_name', '').strip()
         email = request.data.get('email', '').strip()
         password = request.data.get('password')
         phone = request.data.get('phone') # This is received but not used yet

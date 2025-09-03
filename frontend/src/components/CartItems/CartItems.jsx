@@ -3,10 +3,12 @@
 import React, { useContext } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../context/ShopContext';
-import { XCircle } from 'lucide-react';
+import { XCircle, Plus, Minus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const CartItems = () => {
-    const { all_products, cartItems, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
+    const { all_products, cartItems, removeFromCart, getTotalCartAmount, addToCart, deleteFromCart } = useContext(ShopContext);
+    const navigate = useNavigate();
 
     return (
         <div className="cartitems container my-5">
@@ -29,10 +31,14 @@ const CartItems = () => {
                             <div className="cartitems-format">
                                 <img src={e.image} alt="" className='carticon-product-icon' />
                                 <p>{e.name}</p>
-                                <p>${e.new_price.toFixed(2)}</p>
-                                <button className='cartitems-quantity'>{cartItems[e.id]}</button>
-                                <p>${(e.new_price * cartItems[e.id]).toFixed(2)}</p>
-                                <XCircle className="cartitems-remove-icon" onClick={() => { removeFromCart(e.id) }} />
+                                <p>₹{parseFloat(e.new_price).toFixed(2)}</p>
+                                <div className="cartitems-quantity-control">
+                                    <button onClick={() => {removeFromCart(e.id)}}><Minus size={16} /></button>
+                                    <div className='cartitems-quantity-display'>{cartItems[e.id]}</div>
+                                    <button onClick={() => {addToCart(e.id)}}><Plus size={16} /></button>
+                                </div>
+                                <p>₹{(parseFloat(e.new_price) * cartItems[e.id]).toFixed(2)}</p>
+                                <XCircle className="cartitems-remove-icon" onClick={() => { deleteFromCart(e.id) }} />
                             </div>
                             <hr />
                         </div>
@@ -48,7 +54,7 @@ const CartItems = () => {
                     <div>
                         <div className="cartitems-total-item">
                             <p>Subtotal</p>
-                            <p>${getTotalCartAmount().toFixed(2)}</p>
+                            <p>₹{getTotalCartAmount().toFixed(2)}</p>
                         </div>
                         <hr />
                         <div className="cartitems-total-item">
@@ -58,10 +64,10 @@ const CartItems = () => {
                         <hr />
                         <div className="cartitems-total-item">
                             <h3>Total</h3>
-                            <h3>${getTotalCartAmount().toFixed(2)}</h3>
+                            <h3>₹{getTotalCartAmount().toFixed(2)}</h3>
                         </div>
                     </div>
-                    <button className="btn btn-primary mt-4">PROCEED TO CHECKOUT</button>
+                        
                 </div>
 
                 <div className="cartitems-promocode">

@@ -1,0 +1,10 @@
+.checkout-header {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 2rem;
+}
+
+.order-md-last {
+    /* On medium screens and up, this column will appear last */
+    order: 1;
+}
