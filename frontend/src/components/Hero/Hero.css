@@ -1,0 +1,33 @@
+.hero-placeholder {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.hero-placeholder.hero-error {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.hero-image {
+    /* You can change this value to whatever height you like */
+    height: 350px;
+
+    /* 'object-fit: cover' is the key to preventing distortion. */
+    /* It will crop the image to fit the container, rather than squishing it. */
+    object-fit: cover;
+
+    width: 100%;
+    /* Ensure it always spans the full width */
+    border-radius: 8px;
+    object-position: top;
+}
+
+.clickable-carousel-item {
+    cursor: pointer;
+}

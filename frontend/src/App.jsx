@@ -11,6 +11,8 @@ import Shop from "./pages/Shop/Shop";
 import Checkout from "./pages/Checkout/Checkout";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
+import AboutUs from "./pages/AboutUs/AboutUs";
+import ContactUs from "./pages/ContactUs/ContactUs";
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path="/washing_machine" element={<ShopCategory subcategory="washing_machine" />} />
           <Route path="/refrigerator" element={<ShopCategory subcategory="refrigerator" />} />
           <Route path="/books" element={<ShopCategory category="books" />} />
+          <Route path="/toys" element={<ShopCategory category="toys" />} />
           <Route path="/home" element={<ShopCategory category="home" />} />
           <Route path="/product" element={<Product />}>
             <Route path=":productId" element={<Product />} />
@@ -38,6 +41,8 @@ function App() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
         </Routes>
       </main>
       <Footer />

@@ -14,7 +14,7 @@ const SearchResult = () => {
   return (
     <div className="search-results container">
       <h1 className="my-4">
-        Search Resulr for: <span className="text-primary">"{query}"</span>
+        Search Result for: <span className="text-primary">"{query}"</span>
       </h1>
       {filteredProducts.length > 0 ? (
         <div className="row">

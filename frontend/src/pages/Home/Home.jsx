@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ShopContext } from '../../context/ShopContext';
+import Hero from '../../components/Hero/Hero';
 import Item from '../../components/Item/Item';
 import './Home.css';
 
@@ -20,6 +21,10 @@ const Home = () => {
                     <h1 className="display-5 fw-bold">Welcome to SHOPPER</h1>
                     <p className="col-md-8 fs-4">Your one-stop shop for the latest trends in fashion, tech, and more.</p>
                 </div>
+            </div>
+
+            <div className="hero-section mb-5">
+                <Hero />
             </div>
 
             <div className="product-section mb-5">

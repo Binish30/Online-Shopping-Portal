@@ -62,7 +62,7 @@ const MyOrders = () => {
         currentOrders.map(order => order.id === orderId ? responseData : order)
       );
 
-      alert("Order successfully cancelled.");
+      alert("Order  Successfully Cancelled.");
 
     } catch (err) {
       alert(`Error: ${err.message}`);

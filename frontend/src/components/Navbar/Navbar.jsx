@@ -72,6 +72,11 @@ const Navbar = () => {
                 Books
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/toys">
+                Toys
+              </NavLink>
+            </li>
             <NavDropdown title="Clothes" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/women">
                 Women
