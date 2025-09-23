@@ -81,6 +81,39 @@ const MyOrders = () => {
     return <div className="alert alert-danger my-5 ">{error}</div>;
   }
 
+  const handleDownloadInvoice = async (orderId) => {
+    try  {
+      const response = await fetch(`http://localhost:8000/api/orders/${orderId}/invoice/`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth-token')}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.error || 'Failed to download invoice.');
+      }
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+
+      a.download = `invoice_${orderId}.pdf`;
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    }
+  }; 
   return (
     <div className="my-orders-page conatiner my-5">
       <h1 className="mb-4">My Orders</h1>
@@ -147,6 +180,14 @@ const MyOrders = () => {
                       >
                         Cancel Order
                       </button>
+                    )}
+                    {order.status === 'Delivered' && (
+                      <button
+                        className="btn btn-sm btn-outline-primary"
+                        onClick={() => handleDownloadInvoice(order.id)}
+                        >
+                          Download Invoice
+                      </button> 
                     )}
                   </div>
                 </div>
