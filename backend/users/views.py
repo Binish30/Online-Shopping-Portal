@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status as drf_status # Use a consistent, safe alias
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import UserProfile
 
 class SignUpView(APIView):
     def post(self, request):
@@ -41,6 +42,9 @@ class SignUpView(APIView):
             )
             user.is_active = False
             user.save()
+
+            UserProfile.objects.create(user=user, phone_number=phone)
+
             return Response(
                 {'success': 'Registration successful! Your account is pending admin approval.'}, 
                 status=drf_status.HTTP_201_CREATED
@@ -71,3 +75,56 @@ class LoginView(APIView):
             'token': str(refresh.access_token),
             'username': user.first_name
         })
+
+class PasswordResetVerifyView(APIView):
+
+    def post(self, request):
+        email = request.data.get('email', '').strip()
+        phone = request.data.get('phone')
+
+        if not email or not phone:
+            return Response(
+                {'error': 'Email and phone number are required.'},
+                status=drf_status.HTTP_400_BAD_REQUEST
+            ) 
+
+        try:
+            user = User.objects.get(email=email, profile__phone_number=phone)
+
+            return Response(
+                {'success': 'User Verified Successfully.'},
+                status=drf_status.HTTP_200_OK
+            )
+        except User.DoesNotExist:
+            return Response(
+                {'error': 'Invalid email or phone number.'},
+                status=drf_status.HTTP_404_NOT_FOUND
+            )
+
+class PasswordResetConfirmView(APIView):
+    
+    def post(self,request):
+        email = request.data.get('email')
+        new_password = request.data.get('new_password')
+
+        if not email or not new_password:
+            return Response(
+                {'error': 'Email and New Password are required.'},
+                status=drf_status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            user = User.objects.get(email=email)
+            user.set_password(new_password)
+            user.save()
+
+            return Response(
+                {'success': 'Password has been reset Successfully.'},
+                status=drf_status.HTTP_200_OK
+            )
+
+        except User.DoesNotExist:
+            return Response(
+                {'error': 'User Not Found.'},
+                status=drf_status.HTTP_404_NOT_FOUND
+            )

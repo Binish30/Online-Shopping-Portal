@@ -4,6 +4,10 @@
 __pycache__/
 *.pyc
 
+# --- Environment files ---
+# Ignore all .env files in any directory
+*.env
+
 # --- Backend (Django) ---
 # This is the most important line for the backend.
 # It ignores the entire virtual environment folder.

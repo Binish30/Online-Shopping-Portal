@@ -13,6 +13,7 @@ import MyOrders from "./pages/MyOrders/MyOrders";
 import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/order-success" element={<OrderSuccess />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </main>
       <Footer />

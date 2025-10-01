@@ -40,7 +40,7 @@ const MyOrders = () => {
   }, []);
 
   const handleCancelOrder = async (orderId) => {
-    if (!window.confirm("Are you sure you want to canmcel this order?")) {
+    if (!window.confirm("Are you sure you want to cancel this order?")) {
       return;
     }
     try {

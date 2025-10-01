@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.conf import settings
 import os
+import stripe
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status as drf_status
@@ -13,12 +14,16 @@ from .models import Order, OrderItem
 from products.models import Product
 from .serializers import OrderSerializer, OrderDetailSerializer
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 class CreateOrderView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         cart_items = request.data.get('cart')
         shipping_address = request.data.get('shippingAddress')
+        payment_method = request.data.get('paymentMethod')
+        payment_intent_id = request.data.get('paymentIntentId')
 
         if not cart_items or not shipping_address:
             return Response(
@@ -34,14 +39,16 @@ class CreateOrderView(APIView):
             
             order = Order.objects.create(
                 user=user,
-                first_name=shipping_address['first_name'],
-                last_name=shipping_address['last_name'],
+                first_name=shipping_address['firstName'],
+                last_name=shipping_address['lastName'],
                 email=shipping_address['email'],
                 phone=shipping_address['phone'],
                 address=shipping_address['address'],
                 city=shipping_address['city'],
-                zip_code=shipping_address['zip_code'],
-                order_total=total_price
+                zip_code=shipping_address['zipCode'],
+                order_total=total_price,
+                paid=True,
+                payment_method=payment_method
             )
 
             for item in cart_items:
@@ -123,3 +130,42 @@ class GenerateInvoicePDFView(APIView):
             print(f"Error generating PDF: {e}")
             # Corrected return statement
             return Response({'error': 'Failed to generate PDF.'}, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class CreatePaymentIntentView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        cart_items = request.data.get('cart')
+        if not cart_items:
+            return Response({'error': 'Cart is empty.'}, status=drf_status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # --- STEP 1: Calculate the FULL total amount first ---
+            total_amount = 0
+            for item in cart_items:
+                product = Product.objects.get(id=item['id']) # Corrected key access
+                total_amount += product.new_price * item['quantity']
+
+            # --- STEP 2: Create the Payment Intent AFTER the loop is finished ---
+            # This code is now OUTSIDE the for loop.
+            final_amount_in_cents = int(total_amount * 100)
+
+            # Ensure we don't try to create a payment for 0
+            if final_amount_in_cents <= 0:
+                 return Response({'error': 'Total amount must be greater than zero.'}, status=drf_status.HTTP_400_BAD_REQUEST)
+
+            intent = stripe.PaymentIntent.create(
+                amount=final_amount_in_cents,
+                currency='usd',
+                automatic_payment_methods={'enabled': True},
+            )
+
+            return Response({
+                'clientSecret': intent.client_secret
+            }, status=drf_status.HTTP_200_OK)
+
+        except Product.DoesNotExist:
+            return Response({'error': 'A product in the cart was not found.'}, status=drf_status.HTTP_404_NOT_FOUND)
+        
+        except Exception as e:
+            return Response({'error': str(e)}, status=drf_status.HTTP_500_INTERNAL_SERVER_ERROR)

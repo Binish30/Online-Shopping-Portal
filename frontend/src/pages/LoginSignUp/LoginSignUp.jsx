@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import './LoginSignUp.css';
+import { Link } from "react-router-dom";
 
 const LoginSignUp = () => {
   const [state, setState] = useState("Login");
@@ -110,6 +111,11 @@ const LoginSignUp = () => {
             placeholder="Password"
             className="form-control"
           />
+          {state === "Login" && (
+            <div className="text-end mt-1" style={{ fontSize: '0.9rem' }}>
+              <Link to="/forgot-password">Forgot Password?</Link>
+            </div>
+          )}
         </div>
         <button
           className="btn btn-primary w-100"

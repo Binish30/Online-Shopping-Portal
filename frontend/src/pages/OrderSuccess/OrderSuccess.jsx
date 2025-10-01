@@ -30,7 +30,8 @@ const OrderSuccess = () => {
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item"><strong>Order ID:</strong>#{order.id}</li>
                         <li className="list-group-item"><strong>Date:</strong>{new Date(order.created_at).toLocaleDateString()}</li>
-                        <li className="list-group-item"><strng>Status:</strng>{order.status}</li>
+                        <li className="list-group-item"><strong>Status:</strong>{order.status}</li>
+                        <li className="list-group-item"><strong>Payment Method:</strong>{order.payment_method}</li>
                         <li className="list-group-item"><strong>Order Total</strong>₹{parseFloat(order.order_total).toFixed(2)}</li>
                     </ul>
                 </div>
