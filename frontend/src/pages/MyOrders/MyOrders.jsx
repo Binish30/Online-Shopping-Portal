@@ -9,7 +9,8 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/my-orders/", {
+        const apiUrl = import.meta.env.VITE_API_URL;
+    const response = await fetch(`${apiUrl}/api/my-orders/`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -44,7 +45,8 @@ const MyOrders = () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:8000/api/orders/${orderId}/cancel/`, {
+      const apiUrl = import.meta.env.VITE_API_URL;
+    const response = await fetch(`${apiUrl}/api/orders/${orderId}/cancel/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +85,9 @@ const MyOrders = () => {
 
   const handleDownloadInvoice = async (orderId) => {
     try  {
-      const response = await fetch(`http://localhost:8000/api/orders/${orderId}/invoice/`, {
+
+       const apiUrl = import.meta.env.VITE_API_URL;
+            const response = await fetch(`${apiUrl}/api/orders/${orderId}/invoice/`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('auth-token')}`,

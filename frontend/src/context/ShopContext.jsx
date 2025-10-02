@@ -19,8 +19,9 @@ const ShopContextProvider = (props) => {
 
     useEffect(() => {
         const fetchProducts = async () => {
+            const apiUrl = import.meta.env.VITE_API_URL;
             try {
-                const response = await fetch('http://localhost:8000/api/products/');
+                const response = await fetch(`${apiUrl}/api/products/`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch products');
                 }

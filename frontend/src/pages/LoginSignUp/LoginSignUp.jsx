@@ -19,9 +19,10 @@ const LoginSignUp = () => {
   };
 
   const login = async () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
     console.log("Login form submitted:", formData);
     let responseData;
-    await fetch("http://localhost:8000/api/login/", {
+    await fetch(`${apiUrl}/api/login/`, {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -39,9 +40,17 @@ const LoginSignUp = () => {
   };
 
   const signup = async () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
     console.log("Signup form submitted:", { ...formData, phone });
+    const signupData = {
+            firstName: formData.first_name,
+            lastName: formData.last_name,
+            email: formData.email,
+            password: formData.password,
+            phone: phone
+        };
     let responseData;
-    await fetch("http://localhost:8000/api/signup/", {
+    await fetch(`${apiUrl}/api/signup/`, {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...formData, phone }),
