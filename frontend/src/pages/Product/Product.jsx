@@ -28,12 +28,12 @@ const Product = () => {
           <h1>{product.name}</h1>
           <div className="product-prices">
             <span className="item-price-new">
-              ₹{parseFloat(product.new_price).toFixed(2)}
+              ${parseFloat(product.new_price).toFixed(2)}
             </span>
 
             {product.old_price && (
               <span className="item-price-old">
-                ₹{parseFloat(product.old_price).toFixed(2)}
+                ${parseFloat(product.old_price).toFixed(2)}
               </span>
             )}
           </div>

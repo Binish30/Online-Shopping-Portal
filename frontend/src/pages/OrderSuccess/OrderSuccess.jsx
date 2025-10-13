@@ -32,7 +32,7 @@ const OrderSuccess = () => {
                         <li className="list-group-item"><strong>Date:</strong>{new Date(order.created_at).toLocaleDateString()}</li>
                         <li className="list-group-item"><strong>Status:</strong>{order.status}</li>
                         <li className="list-group-item"><strong>Payment Method:</strong>{order.payment_method}</li>
-                        <li className="list-group-item"><strong>Order Total</strong>₹{parseFloat(order.order_total).toFixed(2)}</li>
+                        <li className="list-group-item"><strong>Order Total</strong>${parseFloat(order.order_total).toFixed(2)}</li>
                     </ul>
                 </div>
                 <div className="col-md-6">
@@ -58,7 +58,7 @@ const OrderSuccess = () => {
                             <br />
                             <small>Quantity: {item.quantity}</small>
                         </div>
-                        <span>₹{parseFloat(item.price).toFixed(2)}</span>
+                        <span>${parseFloat(item.price).toFixed(2)}</span>
                     </li>
                 ))}
             </ul>

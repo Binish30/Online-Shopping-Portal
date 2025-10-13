@@ -28,13 +28,13 @@ const CartItems = () => {
                             <div className="cartitems-format">
                                 <img src={e.image} alt="" className='carticon-product-icon' />
                                 <p>{e.name}</p>
-                                <p>₹{parseFloat(e.new_price).toFixed(2)}</p>
+                                <p>${parseFloat(e.new_price).toFixed(2)}</p>
                                 <div className="cartitems-quantity-control">
                                     <button onClick={() => { removeFromCart(e.id) }}><Minus size={16} /></button>
                                     <div className='cartitems-quantity-display'>{cartItems[e.id]}</div>
                                     <button onClick={() => { addToCart(e.id) }}><Plus size={16} /></button>
                                 </div>
-                                <p>₹{(parseFloat(e.new_price) * cartItems[e.id]).toFixed(2)}</p>
+                                <p>${(parseFloat(e.new_price) * cartItems[e.id]).toFixed(2)}</p>
                                 <XCircle className="cartitems-remove-icon" onClick={() => { deleteFromCart(e.id) }} />
                             </div>
                             <hr />
@@ -49,7 +49,7 @@ const CartItems = () => {
                     <div>
                         <div className="cartitems-total-item">
                             <p>Subtotal</p>
-                            <p>₹{getTotalCartAmount().toFixed(2)}</p>
+                            <p>${getTotalCartAmount().toFixed(2)}</p>
                         </div>
                         <hr />
                         <div className="cartitems-total-item">
@@ -59,7 +59,7 @@ const CartItems = () => {
                         <hr />
                         <div className="cartitems-total-item">
                             <h3>Total</h3>
-                            <h3>₹{getTotalCartAmount().toFixed(2)}</h3>
+                            <h3>${getTotalCartAmount().toFixed(2)}</h3>
                         </div>
                     </div>
                     <button

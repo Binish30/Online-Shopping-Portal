@@ -200,7 +200,7 @@ const data = await response.json();
                                             <h6 className="my-0">{product.name}</h6>
                                             <small className="text-muted">Quantity: {cartItems[product.id]}</small>
                                         </div>
-                                        <span className="text-muted">₹{(parseFloat(product.new_price) * cartItems[product.id]).toFixed(2)}</span>
+                                        <span className="text-muted">${(parseFloat(product.new_price) * cartItems[product.id]).toFixed(2)}</span>
                                     </li>
                                 );
                             }

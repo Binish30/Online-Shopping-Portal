@@ -142,7 +142,7 @@ const MyOrders = () => {
                       Date: {new Date(order.created_at).toLocaleDateString()}
                     </span>
                     <span>
-                      Total: ₹{parseFloat(order.order_total).toFixed(2)}
+                      Total: ${parseFloat(order.order_total).toFixed(2)}
                     </span>
                     <span>
                       Status:
@@ -172,7 +172,7 @@ const MyOrders = () => {
                           <br />
                           <small>Quantity: {item.quantity}</small>
                         </div>
-                        <span>₹{parseFloat(item.price).toFixed(2)}</span>
+                        <span>${parseFloat(item.price).toFixed(2)}</span>
                       </li>
                     ))}
                   </ul>
