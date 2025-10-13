@@ -14,6 +14,8 @@ const ForgotPassword = () => {
 
     const navigate = useNavigate();
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const handleVerifyUser = async (e) => {
         e.preventDefault();
         setIsLoading(true);
@@ -21,7 +23,7 @@ const ForgotPassword = () => {
         setMessage("");
 
         try {
-            const response = await fetch('http://localhost:8000/api/password-reset/verify/', {
+            const response = await fetch(`${apiUrl}/api/password-reset/verify/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, phone }),
@@ -46,7 +48,7 @@ const ForgotPassword = () => {
         setMessage("");
 
         try {
-            const response = await fetch('http://localhost:8000/api/password-reset/confirm/', {
+            const response = await fetch(`${apiUrl}/api/password-reset/confirm/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, new_password: newPassword }),
