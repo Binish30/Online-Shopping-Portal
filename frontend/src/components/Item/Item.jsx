@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 const Item = (props) => {
     return (
         <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div className="carf h-100 item-card">
+            <div className="card h-100 item-card">
                 <Link to={`/product/${props.id}`}>
-                    <img src={props.image} className="card-img-top" alt={props.name} />
+                    <img src={props.image} clas
+                    sName="card-img-top" alt={props.name} />
                 </Link>
                 <div className="card-body d-flex flex-column">
                     <h5 className="card-title">{props.name}</h5>
