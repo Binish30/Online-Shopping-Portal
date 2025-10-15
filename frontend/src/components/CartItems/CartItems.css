@@ -118,3 +118,32 @@ html.dark .cartitems-quantity-control button:hover {
     background: var(--card-bg-color);
     padding: 8px 0;
 }
+
+/* Add this to the bottom of CartItems.css */
+
+.cartitems-mobile-view {
+    display: flex;
+    padding: 15px 10px;
+    gap: 15px;
+}
+
+.mobile-view-left {
+    flex-shrink: 0;
+}
+
+.mobile-view-right {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-product-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.mobile-product-price {
+    color: var(--secondary-text-color);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
