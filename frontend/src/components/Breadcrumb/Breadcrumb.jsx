@@ -16,7 +16,7 @@ const Breadcrumb = (props) => {
         <ChevronRight size={16} />
         <li className="breadcrumb-item"><Link to="/">Shop</Link></li>
         <ChevronRight size={16} />
-        <li className="breadcrumb-item"><Link to={`/${product.category}`}>{product.category.charAt(0).toUpperCase()}+product.category.slice(1)</Link></li>
+        <li className="breadcrumb-item"><Link to={`/${product.category}`}>{product.category.charAt(0).toUpperCase()+product.category.slice(1)}</Link></li>
         <ChevronRight size={16} />
         <li className="breadcrumb-item active" aria-current="page">{product.name}</li>
       </ol>
