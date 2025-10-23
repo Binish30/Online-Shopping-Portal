@@ -41,10 +41,18 @@ const ShopContextProvider = (props) => {
 
 
     const addToCart = (itemId, quantity = 1) => {
+        if (!localStorage.getItem('auth-token')) {
+            alert('Please log in to modify your cart.');
+            return;
+        }
         setCartItems((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + quantity }));
     };
 
     const removeFromCart = (itemId) => {
+        if (!localStorage.getItem('auth-token')) {
+            alert('Please log in to modify your cart.');
+            return;
+        }
         setCartItems((prev) => {
             if (prev[itemId] > 0) {
                 return { ...prev, [itemId]: prev[itemId] - 1 };
