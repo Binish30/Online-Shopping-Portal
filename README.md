@@ -41,19 +41,19 @@ This platform provides a seamless shopping experience with dynamic product brows
 
 # 🛠️ Tech Stack
 ## Backend
-  - Python 3.12+ - Programming Language
-  - Django 5.x - Web Framework
-  - Django REST Framework - API Development
-  - Simple JWT - JSON Web Token Authentication
-  - MySQL - Relational Database
-  - django-cors-headers - Cross-Origin Resource Sharing Management
+  - Programming Language: Python 3.12+
+  - Framework: Django 5.x
+  - API: Django REST Framework
+  - JSON Web Token Authentication: Simple JWT
+  - Database: MySQL
+  - Key Libraries: djangorestframework, djangorestframework-simplejwt, django-cors-headers, mysqlclient, stripe, weasyprint
 ## Frontend
-  - React 19 - Frontend Library
-  - Vite - Build Tool & Development Server
-  - React Router DOM - Client-Side Routing
-  - React Context API - Global State Management
-  - Bootstrap 5 & react-bootstrap - UI Component Library & Styling
-  - lucide-react - Icon Library
+  - Frontend Library: React 19
+  - Build Tool & Development Server: Vite
+  - Client-Side Routing: React Router DOM
+  - Global State Management: React Context API
+  - UI Component Library & Styling: Bootstrap 5 & react-bootstrap
+  - Key Libraries: react, react-router-dom, @stripe/react-stripe-is, luicde-react, react-phone-number-input
 
 ## Project Structure
 
@@ -149,6 +149,8 @@ Fractal-Project/
 ## Authentication
 - POST /api/signup/ - User registration.
 - POST /api/login/ - User login, returns JWT.
+- POST /api/password-reset/verify/ - User's verification to reset password.
+- POST /api/password-reet/confirm/ - User's password change.
 
 ## Products
 - GET /api/products/ - Lists all products.
@@ -156,29 +158,37 @@ Fractal-Project/
 ## Banners
 - GET /api/banners/ - Lists all active homepage banners.
 
-## Orders
+## Orders & Payments
 - POST /api/create-order/ - Creates a new order from the user's cart (requires auth).
 - GET /api/my-orders/ - Gets the logged-in user's order history (requires auth).
 - POST /api/orders/<id>/cancel/ - Cancels a pending order (requires auth).
+- POST /api/create-payment-intent/ (Stripe) -  Initiating a Payment.
+- GET /api/orders/<id>/ - Returns list of order based on id.
+- GET /api/orders/<id>/invoice/ (PDF Download) - Invoice download after order is delivered.
 
 # ✨ Future Enhancements
-## Payment Integration 
-- Integrate a payment gateway like Stripe or Razorpay.
 
 ## User Profile Management 
-- Create a dedicated dashboard for users to update their profile details and manage a shipping address book.
+- Create a dedicated "My Profile" page where users can update their first name, last name, and change their password.
+- Implement a shipping address book, allowing users to save and manage multiple addresses.
 
-## Product Reviews 
-- Allow users to leave reviews and ratings for products.
+## Product Reviews & Ratings
+- Allow logged-in users to submit a star rating and a text review for products they have purchased.
+- Display the average rating on product cards and show all reviews on the product detail page.
 
-## Deployment
-- Prepare and deploy the application to a cloud service like AWS, Heroku, or DigitalOcean.
+## Advance Features
+- Inventory Management: Add a stock_quantity field to the Product model and decrease it when an order is placed. Prevent out-of-stock items from being purchased.
+- Email Notifications: Integrate a service like SendGrid to send transactional emails for order confirmations and shipping updates.
+- Advanced State Management: For even larger applications, the frontend state management could be refactored to use a more powerful library like Redux Toolkit.
 
 # 🐛 Troubleshooting
 
 ## Common Issues
-  1. Module not found errors: Make sure all dependencies are installed
-  2. Database errors: Run migrations with python manage.py migrate
-  3. CORS issues: Ensure Django CORS settings are configured
+  1. ModuleNotFoundError (Backend): Your virtual environment is likely not active. Activate it (.\venv\Scripts\activate on Windows) and run pip install -r requirements.txt.
+  2. Dependency Errors (Frontend): Run npm install in the frontend directory to ensure all packages are installed. If you see strange errors, deleting the node_modules folder and running npm install again is a reliable fix.
+  3. CORS Errors on Live Site: Ensure your CORS_ALLOWED_ORIGINS environment variable on your backend host (PythonAnywhere/Render) exactly matches your frontend's Vercel URL (e.g., https://your-site.vercel.app), with no trailing slash.
+  4. 404 Not Found on Refresh (Live Site): This means your frontend/vercel.json file is missing or misconfigured. It is required for a React Router application on Vercel.
+  5. Static/Admin Files Not Loading on PythonAnywhere: Go to the "Web" tab on PythonAnywhere and ensure the "Static files" mappings are correct and then click the "Reload" button.
+  6. 500 Internal Server Error: This is a backend crash. Check the server logs on your hosting provider (Render or PythonAnywhere) to see the full Python traceback and find the root cause.
 
 Happy Shopping! 🛒
